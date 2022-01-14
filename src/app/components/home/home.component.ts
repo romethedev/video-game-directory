@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public sort!: string;
   public games: Array<Game> = [];
   public originalGameList: Array<Game> = [];
+  public filterResults: Array<Game> = [];
   private routeSub: Subscription = new Subscription;
   private gameSub: Subscription = new Subscription;
 
@@ -45,71 +46,72 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   filterGames() {
-    var filterResults = [];
+    // var filterResults = [];
     for (var i in this.games) {
       // console.log(this.games[i].metacritic);
 
       if(this.games[i].metacritic >= 90) {
         // console.log(this.games[i].name, ' is a good game');
         // console.log(this.games[i]);
-        filterResults.push(this.games[i]);
+        this.filterResults.push(this.games[i]);
         // filterResults.push([i]);
         
       }
     }
-    console.log(filterResults);
-    this.games = filterResults;
+    console.log(this.filterResults);
+    this.games = this.filterResults;
   }
 
   ratedMature() {
-    var filterResults = [];
+    // var filterResults = [];
     for (var i in this.games) {
       // console.log(this.games[i].esrb_rating.name);
       if(this.games[i].esrb_rating.name == 'Mature') {
         // console.log(this.games[i].name, ' is a Mature game');
         // console.log(this.games[i]);
-        filterResults.push(this.games[i]);
+        this.filterResults.push(this.games[i]);
         
       }
     }
-    console.log(filterResults);
-    this.games = filterResults;
+    console.log(this.filterResults);
+    this.games = this.filterResults;
   }
 
   ratedTeen() {
-    var filterResults = [];
+    // var filterResults = [];
     for (var i in this.games) {
       // console.log(this.games[i].esrb_rating.name);
       if(this.games[i].esrb_rating.name == 'Teen') {
         // console.log(this.games[i].name, ' is a Mature game');
         // console.log(this.games[i]);
-        filterResults.push(this.games[i]);
+        this.filterResults.push(this.games[i]);
         
       }
     }
-    console.log(filterResults);
-    this.games = filterResults;
+    console.log(this.filterResults);
+    this.games = this.filterResults;
   }
 
   ratedEveryone() {
-    var filterResults = [];
+    // var filterResults = [];
     for (var i in this.games) {
       // console.log(this.games[i].esrb_rating.name);
       if(this.games[i].esrb_rating.name == 'Everyone 10+') {
         // console.log(this.games[i].name, ' is a Mature game');
         // console.log(this.games[i]);
-        filterResults.push(this.games[i]);
+        this.filterResults.push(this.games[i]);
         
       }
     }
-    console.log(filterResults);
-    this.games = filterResults;
+    console.log(this.filterResults);
+    this.games = this.filterResults;
   }
 
   resetFilters() {
     // console.log(this.games);
     // console.log(this.originalGameList);
     this.games = this.originalGameList;
+    this.filterResults = [];
   }
 
   openGameDetails(id: string): void {     //we're not returning anything when we click on the games but we'll call this.router which is the private router we injected into our constructor, and we'll navigate to the details page and send in id as the parameter so the url will be localhost/details/id of the game clicked

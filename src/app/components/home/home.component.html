@@ -1,0 +1,74 @@
+<div class="filters">
+    <mat-form-field>
+        <mat-label>Sort</mat-label>
+        <mat-select
+            panelClass="sort-select"
+            [(ngModel)]="sort" 
+            (selectionChange)="searchGames(sort)"
+        >
+        <!-- in our mat select we want to catch an event whenever our select changes -->
+        <!-- sort variable must be added to the component.ts  -->
+            <mat-option value="name">Name</mat-option>
+            <mat-option value="-released">Released</mat-option>
+            <mat-option value="-added">Added</mat-option>
+            <mat-option value="-created">Created</mat-option>
+            <mat-option value="-updated">Updated</mat-option>
+            <mat-option value="-rating">Rating</mat-option>
+            <mat-option value="metacritic">Metacritic</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <mat-select
+            panelClass=""
+            [(ngModel)]="filter"
+        >
+            <mat-option (onSelectionChange)="filterGames(filter)" value="meta90plus">Metacritic 90+</mat-option>
+            <mat-option (onSelectionChange)="ratedMature(filter)" value="rated-mature">Rated M for Mature</mat-option>
+            <mat-option (onSelectionChange)="ratedTeen(filter)" value="rated-teen">Rated T for Teen</mat-option>
+            <mat-option (onSelectionChange)="ratedEveryone(filter)" value="rated-everyone">Rated E for Everyone</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+        <mat-label>Reset Filters</mat-label>
+        <mat-select
+            panelClass=""
+            [(ngModel)]="reset"
+            (selectionChange)="resetFilters(reset)"
+        >
+        </mat-select>
+    </mat-form-field> -->
+    <form class="reset-filters" #form="ngForm" (ngSubmit)="resetFilters()">
+        <button class="reset-button">Reset Filters</button>
+    </form>
+    
+</div>
+
+<div class="games"> 
+    <ng-container *ngFor="let game of games">
+        <div class="game" (click)="openGameDetails(game.id)">
+            <div class="game-thumb-container">
+                <img 
+                    *ngIf="game.background_image"
+                    src="{{ game.background_image }}"
+                    alt="thumbnail"
+                    class="game-thumbnail"
+                />
+                <p *ngIf="!game.background_image">No image</p>
+            </div>
+            <div class="game-description">
+                <p class="game-name">{{ game.name }}</p>
+                <div class="game-platforms">
+                    <img 
+                    *ngFor="let gamePlatform of game.parent_platforms"
+                        class="game-platform"
+                        src="assets/images/platforms/{{ gamePlatform.platform.slug }}.png"
+                        alt="{{ gamePlatform.platform.slug }}"
+                    />
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
